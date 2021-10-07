@@ -117,6 +117,8 @@ class {schema.node_name} : public {self.node_base} {{
       {clone_impl}
   }}
 
+  const std::vector<Output>& operands() const override {{ return operands_as_outputs_; }}
+
   {scalar_decls}
   {has_optional_decls}
 }};
