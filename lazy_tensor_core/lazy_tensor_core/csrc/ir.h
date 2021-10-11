@@ -12,6 +12,7 @@
 #include <utility>
 #include <vector>
 
+#include "c10/core/ScalarType.h"
 #include "lazy_tensor_core/csrc/python_util.h"
 #include "lazy_tensors/computation_client/types.h"
 #include "lazy_tensors/span.h"
@@ -206,6 +207,10 @@ class Node {
 
   // The ID of the operation captured by this node.
   OpKind op_;
+  // ATEN dTypes and shapes. They are plural because operators can have tuple
+  // outputs.
+  std::vector<at::ScalarType> at_dtypes_;
+  std::vector<std::vector<int64_t>> at_shapes_;
   size_t num_outputs_ = 1;
   // The hash value of this node.
   lazy_tensors::hash_t node_hash_ = 0;
@@ -216,10 +221,7 @@ class Node {
   // The IR framework user can attach a user defined metadata object deriving
   // from UserMetaData.
   std::shared_ptr<UserMetaData> user_metadata_;
-  // ATEN dTypes and shapes. They are plural because operators can have tuple
-  // outputs.
-  std::vector<at::ScalarType> at_dtypes_;
-  std::vector<std::vector<int64_t>> at_shapes_;
+
 };
 
 // RAII data structure to be used a stack variable to enter a new IR scope. IR
