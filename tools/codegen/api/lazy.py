@@ -56,7 +56,7 @@ def process_ir_type(typ: Type) -> Union[BaseCType, VectorCType, OptionalCType, L
             # TODO(whc) is this actually correct? or should it use a Vector like above
             return ListCType(OptionalCType(BaseCType(valueT)))
         elif str(typ.elem) == 'int':
-            return VectorCType(BaseCType(intT))
+            return VectorCType(BaseCType(longT))
         elif str(typ.elem) == 'bool':
             return VectorCType(BaseCType(boolT))
         else:
